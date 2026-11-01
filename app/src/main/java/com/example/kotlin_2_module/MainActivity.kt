@@ -1,62 +1,75 @@
 package com.example.kotlin_2_module
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.kotlin_2_module.ui.theme.Kotlin_2_moduleTheme
+import androidx.compose.foundation.Image
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            Kotlin_2_moduleTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    InitialsBadge()
-                }
-            }
-        }
+// 1-й вариант из задания: Синий прямоугольник с растянутым фиолетовым овалом
+@Composable
+fun Task6Variant1() {
+    Box(
+        modifier = Modifier
+            .size(width = 240.dp, height = 120.dp)
+            .background(Color.Blue)
+            .padding(16.dp)
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.circle), // картинка из ресурсов
+            contentDescription = null,
+            contentScale = ContentScale.FillBounds, // Растягивает круг в овал
+            colorFilter = ColorFilter.tint(Color(0xFF802A76)),
+            modifier = Modifier.fillMaxSize()
+        )
     }
 }
 
+
+// 2-й вариант из задания: Черный прямоугольник с кругом в правом верхнем углу
 @Composable
-fun InitialsBadge() {
+fun Task6Variant2() {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(100.dp)
-            .background(color = Color.Gray)
-            .padding(16.dp),
-        contentAlignment = Alignment.Center // центрируем круг ро горизонтали и вертикали
+            .size(width = 240.dp, height = 120.dp)
+            .background(Color.Black)
+            .padding(8.dp)                  // Отступ внутри черного блока
     ) {
         Box(
             modifier = Modifier
-                .fillMaxHeight()
-                .aspectRatio(1f)
-                .background(color = Color(0xFFFFA500), CircleShape),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "AD",
-                color = Color.Black
-            )
-        }
+                .wrapContentSize()                 // Не растягиваем на весь экран
+                .size(40.dp)                       // Задаем равные стороны для ровного круга
+                .align(Alignment.TopEnd)           // Прижимаем в правый верхний угол
+                .clip(CircleShape)                 // Делаем форму круга
+                .background(Color(0xFFFF5722))     // Оранжево-красный цвет
+        )
+    }
+}
+
+// Общий предпросмотр сразу для обоих вариантов задания 6
+@Preview(showBackground = true, name = "Task 6 Preview")
+@Composable
+fun Task6Preview() {
+    Column(
+        modifier = Modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
+        Task6Variant1()
+        Task6Variant2()
     }
 }
