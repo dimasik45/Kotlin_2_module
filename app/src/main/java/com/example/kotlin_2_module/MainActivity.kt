@@ -4,20 +4,23 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.kotlin_2_module.ui.theme.Kotlin_2_moduleTheme
-
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,34 +28,35 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Kotlin_2_moduleTheme {
-                ButtonPreview()
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    InitialsBadge()
+                }
             }
         }
     }
 }
 
-
-
-@Preview(showSystemUi = true)
 @Composable
-fun ButtonPreview() {
-    Kotlin_2_moduleTheme {
-        Button(
-            onClick = { /*TODO*/ },
+fun InitialsBadge() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(100.dp)
+            .background(color = Color.Gray)
+            .padding(16.dp),
+        contentAlignment = Alignment.Center // центрируем круг ро горизонтали и вертикали
+    ) {
+        Box(
             modifier = Modifier
-                .statusBarsPadding()
-                .fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
-            border = BorderStroke(2.dp, Color.Gray),
-            elevation = ButtonDefaults.buttonElevation(
-                defaultElevation = 4.dp
-            ),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.LightGray,
-                contentColor = Color.Black
-            )
+                .fillMaxHeight()
+                .aspectRatio(1f)
+                .background(color = Color(0xFFFFA500), CircleShape),
+            contentAlignment = Alignment.Center
         ) {
-            Text("Нажми на меня")
+            Text(
+                text = "AD",
+                color = Color.Black
+            )
         }
     }
 }
